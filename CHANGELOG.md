@@ -13,6 +13,8 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   token crossed the network unencrypted, and the next sign-in revokes it.
 - **A redirect is reported as one.** When a server answers with a redirect, the CLI says so
   instead of printing the status and suggesting a retry.
+- **The diff's column heads print handles as they are stored.** `BARDISTY  YOU` is now
+  `bardisty  you`, and a handle like `OctoCat` keeps its casing.
 
 ### Removed
 - **`YMMV_API` no longer accepts a plain `http://` server other than localhost.** `127.x` and
