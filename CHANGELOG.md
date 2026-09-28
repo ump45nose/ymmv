@@ -5,6 +5,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [Unreleased]
 
 ### Changed
+
 - **The diff's column heads print the handles as they are stored.** `BARDISTY  YOU`
   became `bardisty  you`, still faint, matching the web diff's lowercase handle heads
   (DESIGN.md, Diff session). A mixed-case handle keeps its casing: `OctoCat` no longer
@@ -34,10 +35,12 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.12.0] - 2026-09-19
 
 ### Added
+
 - **`ymmv --reset-marks` forgets the detected values you said no to.** Each one is marked again
   on that run, and the publish goes on as usual.
 
 ### Changed
+
 - **`d` asks about each marked value instead of taking them all.** Each marked row gets its own
   question, as `Editor    Zed → Neovim [Y/n]`. `y` takes the detected value and `n` keeps yours.
 - **A value you keep with `n` is not marked again.** The CLI remembers the answer on this machine
@@ -49,6 +52,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.11.3] - 2026-09-19
 
 ### Fixed
+
 - **Running `ymmv` again picks up a value your environment now detects differently.** On a
   republish the preview card marks each such row, as `Editor    Zed  (detected: Neovim)`, and the
   confirm offers `d` to take every marked value before publishing. Saved values still win by
@@ -58,6 +62,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.11.2] - 2026-09-19
 
 ### Fixed
+
 - **`ymmv set` and the publish prompts refuse a value made only of invisible characters before
   sending it.** A zero-width-only value or extra label is refused locally, the interactive
   publish asks again in place instead of failing after the walk, and `ymmv -y` refuses a
@@ -69,6 +74,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.11.1] - 2026-09-18
 
 ### Changed
+
 - **Logging in again retires the previous token in the same server step that mints the new one.**
   A login interrupted after the mint can no longer leave the replaced token active, and revoking
   it no longer depends on a second request reaching the server.
@@ -78,6 +84,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   and diff pages apply the same rule.
 
 ### Fixed
+
 - **`ymmv`, `ymmv set`, and `ymmv unset` no longer overwrite a change made from another
   terminal or device in between.** The server refuses a write when the profile changed after the
   command read it; the interactive publish reloads the profile, keeps your answers, and asks again.
@@ -91,6 +98,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.11.0] - 2026-09-18
 
 ### Changed
+
 - **`YMMV_TOKEN` no longer needs `YMMV_HANDLE`.** The CLI asks the server which account the token
   belongs to (`GET /api/v1/auth/whoami`) and runs every command as that account. Under an env
   token, `ymmv <handle>` now diffs against your profile, and `ymmv delete` names your page when
@@ -101,6 +109,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.10.0] - 2026-09-16
 
 ### Fixed
+
 - **A publish retry under a login made with this version cannot land on a different GitHub
   account.** `ymmv login` now records the account id next to the token. When publish re-logs-in
   after a session expiry or a handle change, it compares that id against the new login and refuses
@@ -113,6 +122,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.9.0] - 2026-07-22
 
 ### Added
+
 - **The CLI mentions when a newer release exists.** After a command finishes in an interactive
   terminal, a one-line notice on stderr names the newer version, links the release notes, and
   shows the upgrade command (an exact `npx ymmv-cli@<version>` for npx-style runs, since npx
@@ -130,6 +140,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   for scripts.
 
 ### Changed
+
 - **Install instructions pin `npx ymmv-cli@latest`.** Every copyable invocation (READMEs, the
   site's install commands, profile pages) now carries `@latest`, since a bare `npx ymmv-cli`
   can keep running an old cached copy indefinitely.
@@ -137,6 +148,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.8.0] - 2026-07-19
 
 ### Added
+
 - **`YMMV_TOKEN` authenticates without a browser.** Setting `YMMV_TOKEN` (plus `YMMV_HANDLE`
   for publish and set/unset) lets CI and scripts run `ymmv -y` with a token minted by a local
   `ymmv login`. The env token takes precedence over the stored login, is never written or
@@ -155,6 +167,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   base warns before the stored token is overwritten.
 
 ### Fixed
+
 - **Stray arguments error instead of being silently ignored.** `ymmv -y delete` errors with an
   ordering hint instead of publishing, `ymmv delete <handle> -y` errors instead of deleting the
   caller's profile unprompted, and login/logout/version/view/bare-handle forms error instead of
@@ -189,12 +202,14 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   published.
 
 ### Changed
+
 - **Help documents `ymmv delete -y` and the `-e` shorthand for `--extra`.** The README command
   list gains the same forms.
 
 ## [0.7.0] - 2026-07-11
 
 ### Added
+
 - **Reserved names fail fast.** `ymmv 404` (or `ymmv view api`) reports the name is reserved
   locally instead of asking the server and answering with a missing profile.
 - **Requests time out after 30 seconds.** A stalled connection reads as a clear
@@ -202,12 +217,14 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   instead of stalling forever.
 
 ### Fixed
+
 - **Publish conflicts show the server's explanation.** A publish refused because the handle is
   bound to another account prints the server's message instead of a generic handle-taken line.
 
 ## [0.6.2] - 2026-07-09
 
 ### Fixed
+
 - **`404` is now a reserved handle.** The site serves its own page at `/404`, so the handle could
   be published but never viewed.
 - **Extras labels and values are trimmed, and blank ones are rejected.** Padded labels no longer
@@ -217,6 +234,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.6.1] - 2026-07-02
 
 ### Changed
+
 - **Every CLI message shares the card's spacing.** Confirmations (`Published`, `Set`, `Removed`,
   `Deleted`), aborts, login/logout lines, notes, and errors print indented two spaces with one
   blank line of separation, and every run ends with a single blank line. `ymmv help` and
@@ -225,12 +243,14 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   piping or capturing a failed command's stdout doesn't pick up a stray blank line.
 
 ### Fixed
+
 - **Rate-limit messages no longer echo a malformed `retry-after` header:** the retry hint prints
   only for the standard seconds form.
 
 ## [0.6.0] - 2026-07-02
 
 ### Added
+
 - **Republishing is one keypress.** `ymmv` shows your merged profile card first; Enter
   publishes, `e` edits the fields, `n` aborts. First-time publish keeps the guided prompts,
   now with a hint: Enter to keep the shown value, `-` to clear it.
@@ -240,6 +260,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   waiting for your GitHub approval.
 
 ### Changed
+
 - **The card and diff match the web page:** `ymmv.fyi/<handle>` header, `updated 3h ago`, a
   title line over the diff, uppercase column headers. With `YMMV_API` set, every printed URL
   shows that Worker's host.
@@ -249,6 +270,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   `Published` echo is gone).
 
 ### Fixed
+
 - **Offline errors are readable:** `Can't reach ymmv.fyi. Check your connection (…)` instead
   of a raw `fetch failed`, and a network blip no longer kills a login you already approved.
 - **A 401-retry publish can no longer land on a different GitHub account** when the re-login
@@ -257,6 +279,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.5.0] - 2026-07-02
 
 ### Added
+
 - **Three new curated keys: `prompt`, `theme`, `version-manager`.** Prompt renderer (Starship,
   Oh My Posh, …), colorscheme (Catppuccin, Gruvbox, …), and version manager (mise, nvm, …) are
   first-class, diffable fields now. API consumers: `entries[].key` gains the three new values —
@@ -279,6 +302,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
     "Linux". WSL labeling is unchanged.
 
 ### Changed
+
 - **Non-interactive `ymmv` now requires `-y`.** Without a terminal there is no confirm step, so
   the explicit flag is the consent — `ymmv delete` already worked this way. Interactive publishes
   are unchanged.
@@ -286,6 +310,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   field, publish prints the `ymmv unset --extra` cleanup hint.
 
 ### Fixed
+
 - **Top-level cmd.exe sessions no longer detect as "PowerShell".** `PSModulePath` is machine-wide
   on Windows; the detector now reads its first segment (PowerShell prepends the user's Documents
   module dir) and recognizes cmd by its own `PROMPT`. Nested sessions still inherit the parent's
@@ -298,13 +323,16 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.4.0] - 2026-07-02
 
 ### Added
+
 - **`ymmv unset <key>` removes a curated field from your profile.** `ymmv unset --extra "Keyboard"`
   removes a free-form extra.
 
 ### Changed
+
 - **`ymmv set <key> -` now clears the field.** Extras too: `ymmv set --extra "Keyboard=-"`.
 
 ### Fixed
+
 - **Publishing from a stale or switched login now refuses instead of writing to the wrong
   profile.** Covers a second device still bound to an old handle after a GitHub rename, and a
   login change mid-command; the CLI points to `ymmv login`.
@@ -312,6 +340,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.3.0] - 2026-07-01
 
 ### Fixed
+
 - **Light theme no longer shows a dark band past the bottom of short pages on mobile.** The page
   canvas and the browser UI (`theme-color`) now follow the active theme.
 - **The landing example now matches real profiles:** Dotfiles renders under Stack (it's a curated
@@ -323,6 +352,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   instead of erroring the whole page.
 
 ### Changed
+
 - **Diffs now mark both differing values in amber** — on the web and in the CLI — not just your
   column. A difference is symmetric; neither side is the "wrong" one.
 - **Diff pages navigate:** both handles in the header link to their profiles, and the summary line
@@ -347,6 +377,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.2.0] - 2026-07-01
 
 ### Changed
+
 - **Stack diffs now compare by tool identity, not exact text.** Two profiles that list the same tool
   with different casing, spacing, or a common synonym now count as a match instead of a difference —
   `Firefox` = `firefox`, `VS Code` = `vscode`, `JetBrains Mono` = `JetBrainsMono`, `nvim` = `Neovim`.
@@ -357,6 +388,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.1.5] - 2026-06-30
 
 ### Security
+
 - **The `ymmv` credential directory is now created private (0700).** The saved token file was already
   owner-only (0600), but the enclosing `~/.config/ymmv` directory was world-traversable, so another
   local user could see that a ymmv credential existed. It's now locked to your user, and an older
@@ -370,6 +402,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   Hardening only — the production service doesn't redirect these requests.
 
 ### Fixed
+
 - **A brief GitHub hiccup during sign-in no longer aborts the whole login.** If GitHub returned a
   transient error while the CLI was waiting for you to authorize the device code, login used to fail
   outright; it now keeps polling through the blip. A sustained outage or a blocking proxy fails fast
@@ -380,6 +413,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.1.4] - 2026-06-30
 
 ### Security
+
 - **Sign-in now verifies your GitHub token was actually issued to ymmv.** The device-flow sign-in
   endpoint used to trust any valid GitHub access token's identity — so a token leaked, or phished for a
   *different* OAuth app, could be used to mint a ymmv session for that account. Sign-in now verifies each
@@ -390,12 +424,14 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
   login attempts — try again shortly."
 
 ### Notes
+
 - Residual (unchanged): a token obtained by phishing a victim into authorizing ymmv's *own* app still
   validates — this is inherent to the GitHub device flow and out of scope for this change.
 
 ## [0.1.3] - 2026-06-30
 
 ### Fixed
+
 - **Reclaiming a recycled GitHub username locked the new owner out of publishing.** After GitHub
   freed a username a prior ymmv user had renamed away from, the new owner could sign in but every
   `ymmv set` returned "handle taken" and `ymmv.fyi/<handle>` kept redirecting to the previous owner.
@@ -405,12 +441,14 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.1.2] - 2026-06-29
 
 ### Fixed
+
 - **`ymmv delete` and `ymmv logout` 403'd.** The Worker's CSRF check blocked the CLI; disabled it
   (bearer-token API, no CSRF surface). Publish and sign-in were unaffected.
 
 ## [0.1.1] - 2026-06-29
 
 ### Fixed
+
 - **`ymmv` did nothing on Linux, macOS, and WSL.** A global install (`npm i -g ymmv-cli`) and
   `npx ymmv-cli` install the binary as a symlink, which tripped a faulty "am I being run directly?"
   check and made the command exit silently. It now runs no matter how it's installed or invoked.
@@ -419,6 +457,7 @@ Notable changes to **ymmv** (the `ymmv-cli` package + the ymmv.fyi Worker), newe
 ## [0.1.0] - 2026-06-29
 
 ### Added
+
 - **`ymmv-cli`** — the command-line tool. `ymmv` detects and publishes your stack; `ymmv <handle>`
   views anyone's, and diffs it against yours when you're logged in; plus `set`, `delete`, `view`,
   `login`, and `logout`. Honors `NO_COLOR`. Published to npm with build provenance and bundled
